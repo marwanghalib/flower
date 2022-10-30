@@ -342,8 +342,8 @@ def fit_clients(
         )
 
     log(INFO, "fit_clients results and failures:")
-    #print(results)
-    #print(failures)
+    print(results)
+    print(failures)
     return results, failures
 
 
@@ -367,7 +367,7 @@ def _handle_finished_future_after_fit(
     if failure is not None:
         log(INFO, "FAILURE IS NOT None")
         log(INFO, type(failure).__name__)
-        #print(failure)
+        print(failure)
         failures.append(failure)
         return
 
@@ -412,8 +412,8 @@ def evaluate_clients(
         )
 
     log(INFO, "evaluate_clients results and failures:")
-    #print(results)
-    #print(failures)
+    print(results)
+    print(failures)
     return results, failures
 
 
@@ -441,7 +441,7 @@ def _handle_finished_future_after_evaluate(
     if failure is not None:
         log(INFO, "FAILURE IS NOT None")
         log(INFO, type(failure).__name__)
-        #print(failure)
+        print(failure)
         failures.append(failure)
         return
 
