@@ -340,6 +340,10 @@ def fit_clients(
         _handle_finished_future_after_fit(
             future=future, results=results, failures=failures
         )
+
+    print("fit_clients results and failures:")
+    print(results)
+    print(failures)
     return results, failures
 
 
@@ -358,9 +362,13 @@ def _handle_finished_future_after_fit(
 ) -> None:
     """Convert finished future into either a result or a failure."""
 
+    print("START _handle_finished_future_after_fit")
     # Check if there was an exception
     failure = future.exception()
     if failure is not None:
+        print("FAILURE IS NOT None")
+        print(type(failure))
+        print(failure)
         failures.append(failure)
         return
 
@@ -370,11 +378,14 @@ def _handle_finished_future_after_fit(
 
     # Check result status code
     if res.status.code == Code.OK:
+        print("RESULT IS OK")
         results.append(result)
         return
 
     # Not successful, client returned a result where the status code is not OK
     failures.append(result)
+
+    print("FINISH _handle_finished_future_after_fit")
 
 
 def evaluate_clients(
@@ -400,6 +411,10 @@ def evaluate_clients(
         _handle_finished_future_after_evaluate(
             future=future, results=results, failures=failures
         )
+
+    print("evaluate_clients results and failures:")
+    print(results)
+    print(failures)
     return results, failures
 
 
@@ -420,9 +435,14 @@ def _handle_finished_future_after_evaluate(
 ) -> None:
     """Convert finished future into either a result or a failure."""
 
+    print("START _handle_finished_future_after_evaluate")
+
     # Check if there was an exception
     failure = future.exception()
     if failure is not None:
+        print("FAILURE IS NOT None")
+        print(type(failure))
+        print(failure)
         failures.append(failure)
         return
 
@@ -432,8 +452,11 @@ def _handle_finished_future_after_evaluate(
 
     # Check result status code
     if res.status.code == Code.OK:
+        print("RESULT IS OK")
         results.append(result)
         return
 
     # Not successful, client returned a result where the status code is not OK
     failures.append(result)
+
+    print("FINISH _handle_finished_future_after_evaluate")
