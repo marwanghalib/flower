@@ -19,6 +19,7 @@ import concurrent.futures
 import timeit
 from logging import DEBUG, INFO
 from typing import Dict, List, Optional, Tuple, Union
+import traceback
 
 from flwr.common import (
     Code,
@@ -343,8 +344,6 @@ def fit_clients(
     file = open('fit_failure_results.txt','a+')
     file.write("\nfit_clients:")
     file.write("fit_clients results and failures:")
-    file.write("\tResults:")
-    file.write(str(results))
     file.write("\tFailures:")
     file.write(str(failures))
     file.write("\tDONE printing results and failures")
@@ -376,6 +375,8 @@ def _handle_finished_future_after_fit(
         file.write(str(type(failure)))
         file.write("Printing failure..")
         file.write(str(failure))
+        file.write("\nStack trace?")
+        file.write(str(traceback.print_tb(failure.__traceback__)))
         file.write("DONE printing failure")
         failures.append(failure)
         return
@@ -423,8 +424,6 @@ def evaluate_clients(
 
     file = open('evaluate_failure_results.txt','a+')
     file.write("\nevaluate_clients results and failures:")
-    file.write("\tResults:")
-    file.write(str(results))
     file.write("\tFailures:")
     file.write(str(failures))
     file.write("\tDONE printing results and failures")
@@ -459,6 +458,8 @@ def _handle_finished_future_after_evaluate(
         file.write(str(type(failure)))
         file.write("Printing failure..")
         file.write(str(failure))
+        file.write("\nStack trace?")
+        file.write(str(traceback.print_tb(failure.__traceback__)))
         file.write("DONE printing failure")
         failures.append(failure)
         return
