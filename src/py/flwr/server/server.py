@@ -344,9 +344,9 @@ def fit_clients(
     file.write("\nfit_clients:")
     file.write("fit_clients results and failures:")
     file.write("\tResults:")
-    file.write(results)
+    file.write(str(results))
     file.write("\tFailures:")
-    file.write(failures)
+    file.write(str(failures))
     file.write("\tDONE printing results and failures")
     return results, failures
 
@@ -367,15 +367,15 @@ def _handle_finished_future_after_fit(
     """Convert finished future into either a result or a failure."""
 
     file = open('fit_failure_results.txt','a+')
-    file.write("START _handle_finished_future_after_fit")
+    file.write("\nSTART _handle_finished_future_after_fit")
     # Check if there was an exception
     failure = future.exception()
     if failure is not None:
         file.write("FAILURE IS NOT None")
         file.write("Printing failure type..")
-        file.write(type(failure))
+        file.write(str(type(failure)))
         file.write("Printing failure..")
-        file.write(failure)
+        file.write(str(failure))
         file.write("DONE printing failure")
         failures.append(failure)
         return
@@ -422,12 +422,11 @@ def evaluate_clients(
         )
 
     file = open('evaluate_failure_results.txt','a+')
-    file.write("START _handle_finished_future_after_evaluate")
-    file.write("evaluate_clients results and failures:")
+    file.write("\nevaluate_clients results and failures:")
     file.write("\tResults:")
-    file.writent(results)
+    file.write(str(results))
     file.write("\tFailures:")
-    file.write(failures)
+    file.write(str(failures))
     file.write("\tDONE printing results and failures")
     return results, failures
 
@@ -450,16 +449,16 @@ def _handle_finished_future_after_evaluate(
     """Convert finished future into either a result or a failure."""
 
     file = open('evaluate_failure_results.txt','a+')
-    file.write("START _handle_finished_future_after_evaluate")
+    file.write("\nSTART _handle_finished_future_after_evaluate")
 
     # Check if there was an exception
     failure = future.exception()
     if failure is not None:
         file.write("FAILURE IS NOT None")
         file.write("Printing failure type..")
-        file.write(type(failure))
+        file.write(str(type(failure)))
         file.write("Printing failure..")
-        file.write(failure)
+        file.write(str(failure))
         file.write("DONE printing failure")
         failures.append(failure)
         return
