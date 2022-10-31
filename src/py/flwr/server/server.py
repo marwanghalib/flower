@@ -340,13 +340,14 @@ def fit_clients(
         _handle_finished_future_after_fit(
             future=future, results=results, failures=failures
         )
-
-    print("fit_clients results and failures:")
-    print("\tResults:")
-    print(results)
-    print("\tFailures:")
-    print(failures)
-    print("\tDONE printing results and failures")
+    file = open('fit_failure_results.txt','a+')
+    file.write("\nfit_clients:")
+    file.write("fit_clients results and failures:")
+    file.write("\tResults:")
+    file.write(results)
+    file.write("\tFailures:")
+    file.write(failures)
+    file.write("\tDONE printing results and failures")
     return results, failures
 
 
@@ -364,16 +365,18 @@ def _handle_finished_future_after_fit(
     failures: List[Union[Tuple[ClientProxy, FitRes], BaseException]],
 ) -> None:
     """Convert finished future into either a result or a failure."""
-    print("START _handle_finished_future_after_fit")
+
+    file = open('fit_failure_results.txt','a+')
+    file.write("START _handle_finished_future_after_fit")
     # Check if there was an exception
     failure = future.exception()
     if failure is not None:
-        print("FAILURE IS NOT None")
-        print("Printing failure type..")
-        print(type(failure))
-        print("Printing failure..")
-        print(failure)
-        print("DONE printing failure")
+        file.write("FAILURE IS NOT None")
+        file.write("Printing failure type..")
+        file.write(type(failure))
+        file.write("Printing failure..")
+        file.write(failure)
+        file.write("DONE printing failure")
         failures.append(failure)
         return
 
@@ -383,14 +386,15 @@ def _handle_finished_future_after_fit(
 
     # Check result status code
     if res.status.code == Code.OK:
-        print("RESULT IS OK")
+        file.write("RESULT IS OK")
         results.append(result)
         return
 
     # Not successful, client returned a result where the status code is not OK
     failures.append(result)
+    file.write("FINISH _handle_finished_future_after_fit")
 
-    print("FINISH _handle_finished_future_after_fit")
+    #file.close()
 
 
 def evaluate_clients(
@@ -417,12 +421,14 @@ def evaluate_clients(
             future=future, results=results, failures=failures
         )
 
-    print("evaluate_clients results and failures:")
-    print("\tResults:")
-    print(results)
-    print("\tFailures:")
-    print(failures)
-    print("\tDONE printing results and failures")
+    file = open('evaluate_failure_results.txt','a+')
+    file.write("START _handle_finished_future_after_evaluate")
+    file.write("evaluate_clients results and failures:")
+    file.write("\tResults:")
+    file.writent(results)
+    file.write("\tFailures:")
+    file.write(failures)
+    file.write("\tDONE printing results and failures")
     return results, failures
 
 
@@ -443,17 +449,18 @@ def _handle_finished_future_after_evaluate(
 ) -> None:
     """Convert finished future into either a result or a failure."""
 
-    print("START _handle_finished_future_after_evaluate")
+    file = open('evaluate_failure_results.txt','a+')
+    file.write("START _handle_finished_future_after_evaluate")
 
     # Check if there was an exception
     failure = future.exception()
     if failure is not None:
-        print("FAILURE IS NOT None")
-        print("Printing failure type..")
-        print(type(failure))
-        print("Printing failure..")
-        print(failure)
-        print("DONE printing failure")
+        file.write("FAILURE IS NOT None")
+        file.write("Printing failure type..")
+        file.write(type(failure))
+        file.write("Printing failure..")
+        file.write(failure)
+        file.write("DONE printing failure")
         failures.append(failure)
         return
 
@@ -463,11 +470,11 @@ def _handle_finished_future_after_evaluate(
 
     # Check result status code
     if res.status.code == Code.OK:
-        print("RESULT IS OK")
+        file.write("RESULT IS OK")
         results.append(result)
         return
 
     # Not successful, client returned a result where the status code is not OK
     failures.append(result)
 
-    print("FINISH _handle_finished_future_after_evaluate")
+    file.write("FINISH _handle_finished_future_after_evaluate")
